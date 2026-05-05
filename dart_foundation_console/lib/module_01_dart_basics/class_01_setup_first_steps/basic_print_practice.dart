@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 main(){
   String name = 'Hasan';
   int age = 23;
@@ -9,7 +7,7 @@ main(){
 
   print("Hey!!! I $check $name.");
   print("I am $age years old.");
-  print("My unversity CG was ${cg.toStringAsFixed(2)}.");
-  print("I love Flowers.");
+  print("My university CG was ${cg.toStringAsFixed(2)}.");
+  print("I love flowers.");
 
 }

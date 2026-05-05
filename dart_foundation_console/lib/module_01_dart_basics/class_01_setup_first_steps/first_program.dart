@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 main(){
   String greeting= "Hey";
   int age = 25;
