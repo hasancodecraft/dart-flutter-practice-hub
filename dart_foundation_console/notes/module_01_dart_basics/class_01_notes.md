@@ -4,6 +4,7 @@
      2.String 
      3.Bool 
      4.Duble
+     5.num(int and double);
 
 ## Same Line Output:
 

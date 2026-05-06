@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Current Dart File",
+            "cwd": "dart_foundation_console",
+            "request": "launch",
+            "type": "dart",
+            "program": "${file}",
+            "console": "debugConsole"
+        }
+    ]
+}
