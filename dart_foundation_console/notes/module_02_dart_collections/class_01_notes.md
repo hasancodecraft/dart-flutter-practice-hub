@@ -10,8 +10,6 @@
 * for-in loop
 * forEach loop
 
----
-
 # Growable List
 
 A growable list can grow or shrink.
@@ -35,8 +33,6 @@ Output:
 * Growable list size can change.
 * We can add new item using add().
 * Most normal lists in Dart are growable.
-
----
 
 # contains()
 
@@ -70,8 +66,6 @@ Because 'King' and 'king' are not the same.
 * It returns true if the value exists.
 * It returns false if the value does not exist.
 * Capital letter and small letter matter in Dart.
-
----
 
 # Fixed-length List
 
@@ -131,8 +125,6 @@ If I need 5 fixed marks, I can create:
 
 List<int> marks = List.filled(5, 0);
 
----
-
 # Nested List
 
 A nested list means a list inside another list.
@@ -181,8 +173,6 @@ all[2][0] means Abdullah.
 * First index selects the inner list.
 * Second index selects the value inside that inner list.
 
----
-
 # Normal for Loop
 
 A normal for loop is useful when I need index.
@@ -218,8 +208,6 @@ pip[3] = King
 ## My Understanding
 
 Use normal for loop when I need index number.
-
----
 
 # for-in Loop
 
@@ -257,7 +245,6 @@ Use for-in loop when I do not need index.
 
 It is simple and easy to read.
 
----
 
 # forEach Loop
 
@@ -298,7 +285,6 @@ Output:
 * For beginner practice, for-in is easier to understand.
 * If I need index or more control, normal for loop is better.
 
----
 
 # for Loop vs for-in vs forEach
 
@@ -336,7 +322,6 @@ pip.forEach((name) => print(name));
 * Need only value? Use for-in loop.
 * Need simple one-line action? Use forEach loop.
 
----
 
 # My Practice Code
 
@@ -377,8 +362,6 @@ print(number);
 numbList.forEach((number) => print(number));
 }
 
----
-
 # Important Understanding
 
 * Growable list can add or remove items.
@@ -392,13 +375,21 @@ numbList.forEach((number) => print(number));
 * for-in loop is useful when I only need values.
 * forEach is useful for simple action on every item.
 
----
-
 # Problems Faced
 
 * I was confused about fixed-length list.
 * I learned that fixed-length list size cannot change, but existing values can be updated.
 * I was confused about for-in and forEach.
-* I learned that both can print every item, but for-in is easier and gives better control.
+* I learned that both can print every item. for-in is easier to read, but normal for loop gives more control because it has index.
 * I was confused about contains('king') returning false.
 * I learned that Dart is case-sensitive, so 'King' and 'king' are different.
+
+# Need to Revise
+
+* Growable List vs Fixed-length List
+* List.filled()
+* contains()
+* Nested List indexing
+* Normal for loop
+* for-in loop
+* forEach loop
