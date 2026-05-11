@@ -40,7 +40,7 @@ void main() {
   // Print all entries
   print(result.entries);
 
-  // Loop through the map
+  // Loop through the map to print key value
   result.forEach((key, value) {
     print('$key: $value');
   });
@@ -69,8 +69,8 @@ void main() {
     },
 
     // Spread Operator
-    ...secondaryAddress,
-
+    ...secondaryAddress, //in this way key will be missed
+    'secondaryAddress': {...secondaryAddress} //key assigned
     // Also can be use:
     // 'secondaryAddress': secondaryAddress,
   };
@@ -82,4 +82,23 @@ void main() {
 
   // Print full user profile
   print(userProfile);
+
+  bool isAdmin = false;
+
+  Map<String, dynamic> adminInfo = {
+
+    'name': "Hasan",
+    'role': "admin",
+    'permission': ['read', 'write', 'delete']
+
+  };
+
+  print(adminInfo);
+
+  Map<String, dynamic> userProfile_2 ={
+    'id': 101,
+    'username': 'dart_master',
+    if(isAdmin) 'adminDetails':adminInfo, //Collection if // No Curly braces allowed
+  };
+  print("Afte Checking: $userProfile_2");
 }
