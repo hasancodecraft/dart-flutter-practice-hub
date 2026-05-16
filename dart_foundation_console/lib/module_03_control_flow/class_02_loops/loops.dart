@@ -58,4 +58,28 @@ void main(){
    }
    
   print("Goodbye");
+  
+  //Do while
+  //First run then check
+  int number = 10;
+
+  do {
+    print("I am Hasan($number)");
+    number++;
+  } while (number <5);  //Will not execute more because 11 < 5
+  // ${variableName} is used for string interpolation.
+  
+
+  // Task 1
+  List<int> celsius =[0, 20, 35, -10];
+  List<String> finalCelsius = [];
+  
+  for(int i = 0; i<celsius.length; i++){
+    String temp = '${celsius[i]}°C';
+    finalCelsius.add(temp);
+  }
+  // Join() combines all list items into one single String using the given separator.
+  String result = finalCelsius.join(' | ');
+  print(result);
+
   }
