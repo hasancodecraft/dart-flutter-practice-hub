@@ -28,7 +28,6 @@ void withdrawMoney(int amount){
   }
 }
 }
-
 void main(){
 
   final hasanAccount = SavingsAccount(customerName: 'Hasan',fund: 1000000);
