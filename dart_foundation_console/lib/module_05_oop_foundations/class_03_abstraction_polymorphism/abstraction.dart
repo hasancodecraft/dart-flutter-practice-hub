@@ -1,6 +1,4 @@
 // Abstraction - complex jinish lukano
-// Poly - (onek) morph - (rup) ism - (bohu rupita)
-
 // Abstract class:
 // We cannot create an object of an abstract class.
 // Abstract methods do not have a body.
