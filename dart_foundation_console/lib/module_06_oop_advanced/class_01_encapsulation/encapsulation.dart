@@ -5,7 +5,7 @@
 // Getter = read
 // Setter = write
 
-import 'debug.dart';
+import 'encapsulation_debug.dart';
 void main(){
   final myObject = MyClass('Hasan');
 
