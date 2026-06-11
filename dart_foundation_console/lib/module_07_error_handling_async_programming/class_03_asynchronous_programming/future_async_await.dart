@@ -6,15 +6,20 @@
 // If the function returns a value later, use Future<T> as the return type.
 // Inside an async function, await is used to wait for a Future result.
 // async makes this function asynchronous, allows await inside it, and returns the final result as a Future.
-void main() async {
+
+// If we call Future.delayed() without await, the function does not wait.
+// The next line runs immediately, but Future.delayed() still starts a timer in the background.
+// Because that timer is still pending, the program may exit only after the delayed Future finishes.
+
+void main() async { // async = needed only when await is used inside that function
   print('Calculating your lucky number...');
 
-  int luckyNumber = await getLuckyNumber();
+  int luckyNumber = await getLuckyNumber(); // await = waits for that Future result
   
   print("Your lucky number is : $luckyNumber");
 }
 
-Future<int> getLuckyNumber() async {
-  await Future.delayed(Duration(seconds: 5));
+Future<int> getLuckyNumber() async { 
+  await Future.delayed(Duration(seconds: 5)); // Future.delayed() = already creates Future
   return 7;
   } 
