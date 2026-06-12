@@ -1,11 +1,3 @@
-void main() async{
-  print('Order placed...');
-
-  String orderStatus = await prepareOrder();
-
-  print("Order Status: $orderStatus");
-}
-
 Future<String> prepareOrder() {
   return Future.delayed(Duration(seconds: 3), // First argument: delay duration
   () {
@@ -13,3 +5,11 @@ Future<String> prepareOrder() {
     }, // Second argument: anonymous function that runs after the delay
   );
 }
+Future<void> main() async{
+  print('Order placed...');
+
+  String orderStatus = await prepareOrder();
+
+  print("Order Status: $orderStatus");
+}
+
