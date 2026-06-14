@@ -22,4 +22,4 @@ void main() async { // async = needed only when await is used inside that functi
 Future<int> getLuckyNumber() async { 
   await Future.delayed(Duration(seconds: 5)); // Future.delayed() = already creates Future
   return 7;
-  } 
+} 

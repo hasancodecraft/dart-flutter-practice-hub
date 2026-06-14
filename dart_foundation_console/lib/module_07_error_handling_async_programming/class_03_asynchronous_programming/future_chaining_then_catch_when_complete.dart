@@ -43,4 +43,3 @@ print('Starting operation...');
 
 print('This prints BEFORE the Future result because we did not await above');
 }
-

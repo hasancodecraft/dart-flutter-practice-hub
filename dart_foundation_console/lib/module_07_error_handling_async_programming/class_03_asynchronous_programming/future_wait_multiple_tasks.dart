@@ -3,7 +3,7 @@
 // Total time depends on the longest Future, not the sum of all Futures.
 // Shorter tasks may finish earlier, but Future.wait completes only after the longest task finishes.
  
- Future<void> main() async{
+ Future<void> main() async {
   await Future.wait([
    fetchDataInTwoSecond(),
    fetchDataInOneSecond(),
@@ -27,5 +27,4 @@
 
    int result = await Future.delayed(Duration(seconds: 3),() => 126);
    print(result); 
-  
  }

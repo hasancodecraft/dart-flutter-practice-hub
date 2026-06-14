@@ -1,4 +1,4 @@
-Future<String> checkUsername (String username) async{
+Future<String> checkUsername(String username) async{
   await Future.delayed(Duration(seconds: 2));
   if(username.isEmpty){
     throw Exception('Username is empty');
