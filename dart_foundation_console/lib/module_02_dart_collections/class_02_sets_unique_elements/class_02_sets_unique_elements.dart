@@ -1,11 +1,19 @@
 import 'dart:io';
+// List = order + index important
+// Set = unique value important
+// Set allows add, remove, contains, and loop.
+// Set does not allow duplicate values or index access like set[0].
+
+// where() filters matching values and returns an Iterable.
+// Iterable means values can be accessed one by one, usually using a loop.
+// toSet() converts that Iterable into a Set.
 
 void main() {
   // User input
-  stdout.write('Enter your name: ');
-  String? name = stdin.readLineSync();
+  // stdout.write('Enter your name: ');
+  // String? name = stdin.readLineSync();
 
-  print('Hello $name');
+  // print('Hello $name');
 
   // Set
   // No duplicates / unique values
@@ -35,6 +43,10 @@ void main() {
   print('Intersection: $inter');
 
   // difference - values in modified but not in uniqueNames
-  var diff = modified.difference(uniqueNames);
+  var diff = modified.difference(uniqueNames); 
   print('Difference: $diff');
+ 
+  Set<int> numbers = {1,2,3,4};
+  Set test = numbers.where((element) => element == 1).toSet();
+  print(test);
 }
