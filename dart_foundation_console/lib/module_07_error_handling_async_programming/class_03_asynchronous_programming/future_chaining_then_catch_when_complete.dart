@@ -28,12 +28,6 @@ futureFunction(input)
     });
 */
 
-
-Future<int> parseData(String data) async{
-  if (data.isEmpty) throw Exception('Data is empty');
-  return data.length;
-}
-
 void main(){
 print('Starting operation...');
   parseData("Hasan") // Registers the callbacks (.then(), .catchError(), and .whenComplete()); they will run later when the Future completes.
@@ -42,4 +36,9 @@ print('Starting operation...');
       .whenComplete(() => print('Operation finished regardless of outcome')); // Runs always after Future completes. 
 
 print('This prints BEFORE the Future result because we did not await above');
+}
+
+Future<int> parseData(String data) async{
+  if (data.isEmpty) throw Exception('Data is empty');
+  return data.length;
 }
