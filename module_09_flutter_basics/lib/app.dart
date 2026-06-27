@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'class_03_app_structure/app_structure.dart';
 
 // Stateless -> Unchangeable
 // Stateful -> Changeable/dynamic
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) { // context tells us about the page's position.
     return MaterialApp( // MaterialApp is used once for the whole app.
       title: "Flutter 16",
-      home: Home(), // The page that opens when the app starts is set in 'home:'.
+      home: Class3(), // The page that opens when the app starts is set in 'home:'.
     ); // MaterialApp() controls the overall app UI.
 
   }
