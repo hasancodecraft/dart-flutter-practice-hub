@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'class_03_app_structure/app_structure.dart';
+import 'module_09/class_02_basic_widgets/home.dart';
+import 'module_09/class_03_app_structure/app_structure.dart';
 
 // Stateless -> Unchangeable
 // Stateful -> Changeable/dynamic
