@@ -12,53 +12,53 @@ class Class1 extends StatelessWidget {
     ),
     body: Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center, // Centers all children vertically inside the Column.
         children: [
           Container(
-            // padding: EdgeInsets.all(10),
-            // margin: EdgeInsets.all(50),
-            alignment: Alignment.center,
+            // padding: EdgeInsets.all(10), // Creates space inside the Container.
+            // margin: EdgeInsets.all(50), // Creates space outside the Container.
+            alignment: Alignment.center, // Centers the child inside the Container.
             height: 100,
             width: 100,
-            transform: Matrix4.rotationZ(0.3),// make the container curve
-            decoration: BoxDecoration(  // To design is container
+            transform: Matrix4.rotationZ(0.3),// Rotates the Container around the Z-axis.
+            decoration: BoxDecoration(  // Used to design the Container.
               color: Colors.cyanAccent,
-              borderRadius: BorderRadius.circular(12), // change corner bordershape (value x-x)
-              border: Border.all(width: 3,color: Colors.red),
+              borderRadius: BorderRadius.circular(12), // Rounds the corners of the Container.
+              border: Border.all(width: 3,color: Colors.red), // Adds a red border around the Container.
               boxShadow: [
-                BoxShadow( // create object Shadow
+                BoxShadow( // Creates a shadow effect.
                   color: Colors.black12,
-                  offset: Offset(10, 10), // shadow position X and y axis
-                  blurRadius: 4) // To blour the shadow 
+                  offset: Offset(10, 10), // Sets the shadow position on the X and Y axes.
+                  blurRadius: 4) // Controls how blurry the shadow appears.
               ]
               ),
             child: Text("Hi",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
           ),
 
-          SizedBox( // gap between two container
+          SizedBox( // Creates a vertical gap between the two Containers.
             height: 10,
           ),
 
           Container(
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
+            margin: EdgeInsets.all(16), // Creates space outside the Container.
+            padding: EdgeInsets.all(12), // Creates space inside the Container.
+            decoration: BoxDecoration( // Used to design the Container.
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16), // Rounds the corners of the Container.
               boxShadow: [
                 BoxShadow(
                   color: Colors.black,
-                  blurRadius: 10,
+                  blurRadius: 10, // Controls how blurry the shadow appears.
                 )
               ]
             ),
-            child: Row(
+            child: Row( // Arranges its children horizontally.
               children: [
                 CircleAvatar(radius: 30,
-                backgroundImage: NetworkImage("https://scdn.speedsize.com/653debbb-d4a4-43dc-aac9-c44f9620f59a/https://snibbs.co/cdn/shop/articles/What_are_the_Challenges_of_Being_a_Doctor.jpg?v=1684314843"),), // create a avater
-                SizedBox(width: 12,), // horizontal gap between avatar and text
+                backgroundImage: NetworkImage("https://scdn.speedsize.com/653debbb-d4a4-43dc-aac9-c44f9620f59a/https://snibbs.co/cdn/shop/articles/What_are_the_Challenges_of_Being_a_Doctor.jpg?v=1684314843"),), // Creates a circular avatar using a network image.
+                SizedBox(width: 12,), // Creates a horizontal gap between the avatar and the text.
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // for all text from start
+                  crossAxisAlignment: CrossAxisAlignment.start, // Aligns all text to the start of the Column.
                   children: [
                     Text("Dr.Hossain", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                     Text("dermatologist")]
@@ -67,8 +67,8 @@ class Class1 extends StatelessWidget {
               ],
             ),
           ),
-          Stack(
-            alignment: Alignment.center,
+          Stack( // Places widgets on top of one another.
+            alignment: Alignment.center, // Centers the non-positioned children inside the Stack.
             children: [
               Container(
                 height: 120,
@@ -77,7 +77,7 @@ class Class1 extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               ),
-              Container( // this container comer uper of its pervious container 
+              Container( // This Container appears on top of the previous Container.
                 height: 80,
                 width: 80,
                 decoration: BoxDecoration(
@@ -86,10 +86,10 @@ class Class1 extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          SizedBox( // Creates a vertical gap.
             height: 10,
           ),
-          Stack(
+          Stack( // Places widgets on top of one another.
             alignment: Alignment.center,
             children: [
               Container(
@@ -99,10 +99,10 @@ class Class1 extends StatelessWidget {
                   color: Colors.lightGreenAccent,
                 ),
               ),
-              Positioned( // for set in a specific posiition in a contatiner
+              Positioned( // Places a widget at a specific position inside the Stack.
                 top: 10,
                 right: 10,
-                child: Container( // this container comer uper of its pervious container 
+                child: Container( // This Container appears on top of the previous Container.
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
