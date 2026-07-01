@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:module_09_flutter_basics/module_10/class_01_material_cupertino_layouts/class_02.dart';
 import 'module_09/class_02_basic_widgets/home.dart';
 import 'module_09/class_03_app_structure/app_structure.dart';
 import 'module_10/class_01_material_cupertino_layouts/class_01.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(// MaterialApp is used once for the whole app.
       debugShowCheckedModeBanner: false, // remove debug mark 
       title: "Flutter 16",
-      home: Class1(), // The page that opens when the app starts is set in 'home:'.
+      home: Class2(), // The page that opens when the app starts is set in 'home:'.
     ); // MaterialApp() controls the overall app UI.
 
   }
