@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:module_09_flutter_basics/module_10/class_01_material_cupertino_layouts/class_02.dart';
 import 'module_09/class_02_basic_widgets/home.dart';
 import 'module_09/class_03_app_structure/app_structure.dart';
-import 'module_10/class_01_material_cupertino_layouts/class_01.dart';
+import 'module_10/class_01_core_layouts_and_stack/core_layouts_and_stack.dart';
+import 'module_10/class_02_alignment_and_decoration/alignment_and_decoration.dart';
+import 'module_10/class_03_responsive_text_and_media_query/responsive_text_and_media_query.dart';
 // Stateless -> Unchangeable
 // Stateful -> Changeable/dynamic
 class MyApp extends StatelessWidget { 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(// MaterialApp is used once for the whole app.
       debugShowCheckedModeBanner: false, // remove debug mark 
       title: "Flutter 16",
-      home: Class2(), // The page that opens when the app starts is set in 'home:'.
+      home: Class03(), // The page that opens when the app starts is set in 'home:'.
     ); // MaterialApp() controls the overall app UI.
 
   }
