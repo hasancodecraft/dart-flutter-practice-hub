@@ -7,7 +7,7 @@ class Module11Class3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("data",style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text("Grid",style: TextStyle(fontWeight: FontWeight.bold),),
         backgroundColor: Colors.cyanAccent,
         centerTitle: true,
       ),
