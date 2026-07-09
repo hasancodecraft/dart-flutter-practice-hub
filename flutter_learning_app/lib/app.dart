@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_01_text_and_images/text_and_images.dart';
 import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_02_lists_and_list_items/lists_and_list_items.dart';
-import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/custom_w.dart';
-import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/ui_components.dart';
+import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/custom_widgets.dart';
+import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/grid_view_practice.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
