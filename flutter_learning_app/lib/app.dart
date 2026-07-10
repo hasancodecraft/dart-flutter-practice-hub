@@ -4,6 +4,7 @@ import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_02_lis
 import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/custom_widgets.dart';
 import 'package:module_09_flutter_basics/module_11_advanced_widgets/class_03_ui_components/grid_view_practice.dart';
 import 'package:module_09_flutter_basics/module_12_forms_and_interactivity/class_01_form_elements/form_elements.dart';
+import 'package:module_09_flutter_basics/module_12_forms_and_interactivity/class_02_ui_components_and_animations/ui_components_and_animations.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(// MaterialApp is used once for the whole app.
       debugShowCheckedModeBanner: false, // remove debug mark 
       title: "Flutter 16",
-      home: Module12Class1(), // The page that opens when the app starts is set in 'home:'.
+      home: Module12Class2(), // The page that opens when the app starts is set in 'home:'.
     ); // MaterialApp() controls the overall app UI.
 
   }
