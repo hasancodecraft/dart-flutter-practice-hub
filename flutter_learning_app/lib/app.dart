@@ -16,6 +16,7 @@ import 'package:module_09_flutter_basics/module_13_stateful_widgets_and_navigati
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_01_todo_app_practice/todo_app.dart';
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_02_modern_ui_packages/loading_screen.dart';
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_02_modern_ui_packages/modern_ui_packages.dart';
+import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_03_dialogs_and_polished_ui/dialogs_and_polished_ui.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
@@ -33,43 +34,48 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) { // context tells us about the page's position.
 
    // ScreenUtilInit initializes flutter_screenutil before responsive units are used.
-   // It should stay above MaterialApp so every page inside the app can use
+   // It stays above MaterialApp so every page inside the app can use
    // responsive extensions such as .w, .h, .sp, .sw, and .sh.
    return ScreenUtilInit(
 
     // designSize is the reference screen size used for responsive calculations.
-    // It does not force the real device to stay at 360 × 690.
-    // ScreenUtil compares the actual screen with this reference size and scales values.
+    // It does not force the actual device screen to remain 360 × 690.
+    // ScreenUtil compares the actual screen size with this reference size
+    // and scales responsive values accordingly.
     designSize: Size(360, 690),
 
-    // Helps text size adapt according to the available screen width.
+    // Helps responsive text adapt according to the available screen width.
     minTextAdapt: true,
 
     // Allows ScreenUtil to respond properly when the app is used
     // in split-screen or multi-window mode.
     splitScreenMode: true,
 
-    // The builder runs after ScreenUtil has received the current screen information.
+    // The builder runs after ScreenUtil receives the current screen information.
     // "_" represents an unused BuildContext parameter.
-    // "child" is also available from ScreenUtilInit but is not used in this code.
+    // "child" is also provided by ScreenUtilInit but is not used in this code.
     builder: (_ , child){
 
-      // MaterialApp is returned inside the builder so all its pages
+      // MaterialApp is returned inside the builder so every route/page
       // can access the initialized ScreenUtil responsive values.
       return MaterialApp( // MaterialApp is used once for the whole app.
         debugShowCheckedModeBanner: false, // Removes the debug banner.
         title: "Flutter 16",
 
-        // home is the default first page when initialRoute is not used.
+        // home sets the default first page when initialRoute is not used.
         // Here, home is commented out because initialRoute is being used.
         //home: Module13Class2(),
 
-        // initialRoute sets which registered named route opens when the app starts.
-        // Here, the app starts from the Shimmer loading practice page.
-        initialRoute: '/module14Class2loading', 
+        // initialRoute sets which registered named route opens first
+        // when the application starts.
+        // Here, the app starts from the Module 14 Class 3
+        // dialogs and polished UI practice page.
+        initialRoute: '/module14Class3', 
         
         // routes connects route-name strings with their destination page widgets.
-        // These names can later be used with Navigator.pushNamed()
+        // The left side contains the route name.
+        // The right side returns the page that opens for that route.
+        // These route names can be used with Navigator.pushNamed()
         // or Navigator.pushReplacementNamed().
         routes: {
           '/about': (context) => About(), // Opens the About page when "/about" is called.
@@ -80,18 +86,20 @@ class MyApp extends StatelessWidget {
 
           '/test': (context) => Test(), // Opens the Test page when "/test" is called.
 
-          "/module13Class3": (context) => Module13Class3(), // Opens the TabBar and TabBarView page.
+          "/module13Class3": (context) => Module13Class3(), // Opens the TabBar and TabBarView practice page.
 
-          "/bottomNav": (context) => BottomNav(), // Opens the Bottom NavigationBar page.
+          "/bottomNav": (context) => BottomNav(), // Opens the Bottom NavigationBar practice page.
 
           "/todoApp": (context) => TodoApp(),  // Opens the Todo App practice page.
           
-          "/module14Class2": (context) => Module14Class2(),  // Opens the responsive and modern UI packages page.
+          "/module14Class2": (context) => Module14Class2(),  // Opens the responsive and modern UI packages practice page.
           
           "/module14Class2loading": (context) => Module14Class2Loading(),  // Opens the Shimmer loading-screen practice page.
+          
+          "/module14Class3": (context) => Module14Class3(),  // Opens the Module 14 Class 3 dialogs and bottom-sheet practice page.
         },
         
-      ); // MaterialApp() controls the overall app UI.
+      ); // MaterialApp controls the overall app configuration and UI.
 
     }
    );
