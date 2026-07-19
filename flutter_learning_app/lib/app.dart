@@ -18,6 +18,9 @@ import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/clas
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_02_modern_ui_packages/modern_ui_packages.dart';
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_03_dialogs_and_polished_ui/dialogs_and_polished_ui.dart';
 
+// Imports the Module 16 task page so it can be registered as a named route.
+import 'package:module_09_flutter_basics/module_16_local_database/class_02_data_manipulation/ui/task_home.dart';
+
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
 
@@ -68,9 +71,8 @@ class MyApp extends StatelessWidget {
 
         // initialRoute sets which registered named route opens first
         // when the application starts.
-        // Here, the app starts from the Module 14 Class 3
-        // dialogs and polished UI practice page.
-        initialRoute: '/module14Class3', 
+        // Here, the app starts from the Module 16 local database task page.
+        initialRoute: '/homeTask', 
         
         // routes connects route-name strings with their destination page widgets.
         // The left side contains the route name.
@@ -90,13 +92,17 @@ class MyApp extends StatelessWidget {
 
           "/bottomNav": (context) => BottomNav(), // Opens the Bottom NavigationBar practice page.
 
-          "/todoApp": (context) => TodoApp(),  // Opens the Todo App practice page.
+          "/todoApp": (context) => TodoApp(), // Opens the Todo App practice page.
           
-          "/module14Class2": (context) => Module14Class2(),  // Opens the responsive and modern UI packages practice page.
+          "/module14Class2": (context) => Module14Class2(), // Opens the responsive and modern UI packages practice page.
           
-          "/module14Class2loading": (context) => Module14Class2Loading(),  // Opens the Shimmer loading-screen practice page.
+          "/module14Class2loading": (context) => Module14Class2Loading(), // Opens the Shimmer loading-screen practice page.
           
-          "/module14Class3": (context) => Module14Class3(),  // Opens the Module 14 Class 3 dialogs and bottom-sheet practice page.
+          "/module14Class3": (context) => Module14Class3(), // Opens the Module 14 Class 3 dialogs and bottom-sheet practice page.
+          
+          // Registers the Module 16 task page with the "/homeTask" route name.
+          // When this route is opened, Flutter creates and displays HomeTask.
+          "/homeTask": (context) => HomeTask(),  
         },
         
       ); // MaterialApp controls the overall app configuration and UI.

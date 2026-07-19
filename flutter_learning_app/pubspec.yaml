@@ -47,6 +47,13 @@ dependencies:
   # Provides animated loading-placeholder effects
   # using baseColor and a moving highlightColor.
   shimmer: ^3.0.0
+  # Provides SQLite support for Flutter.
+  # It is used to open databases, create tables, and perform CRUD operations.
+  sqflite: ^2.4.3
+
+  # Provides platform-safe path utilities.
+  # p.join() combines the database folder and task.db file name correctly.
+  path: ^1.9.1
   
 dev_dependencies:
   flutter_test:
