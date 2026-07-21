@@ -18,8 +18,12 @@ import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/clas
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_02_modern_ui_packages/modern_ui_packages.dart';
 import 'package:module_09_flutter_basics/module_14_responsive_and_modern_ui/class_03_dialogs_and_polished_ui/dialogs_and_polished_ui.dart';
 
-// Imports the Module 16 task page so it can be registered as a named route.
+// Imports the Module 16 Class 2 task page for its named route.
 import 'package:module_09_flutter_basics/module_16_local_database/class_02_data_manipulation/ui/task_home.dart';
+
+// Imports the Module 16 Class 3 task page.
+// This version adds task deletion and completion-status updates.
+import 'package:module_09_flutter_basics/module_16_local_database/class_03_best_practices/ui/task_home.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
@@ -69,10 +73,8 @@ class MyApp extends StatelessWidget {
         // Here, home is commented out because initialRoute is being used.
         //home: Module13Class2(),
 
-        // initialRoute sets which registered named route opens first
-        // when the application starts.
-        // Here, the app starts from the Module 16 local database task page.
-        initialRoute: '/homeTask', 
+        // The app starts from the Module 16 Class 3 task page.
+        initialRoute: '/homeTaskClass3', 
         
         // routes connects route-name strings with their destination page widgets.
         // The left side contains the route name.
@@ -100,9 +102,12 @@ class MyApp extends StatelessWidget {
           
           "/module14Class3": (context) => Module14Class3(), // Opens the Module 14 Class 3 dialogs and bottom-sheet practice page.
           
-          // Registers the Module 16 task page with the "/homeTask" route name.
-          // When this route is opened, Flutter creates and displays HomeTask.
-          "/homeTask": (context) => HomeTask(),  
+          // Opens the Module 16 Class 2 SQLite data-manipulation page.
+          "/homeTask": (context) => HomeTask(), 
+
+          // Opens the Module 16 Class 3 task page.
+          // This page supports adding, deleting, and updating task completion status.
+          "/homeTaskClass3": (context) => HomeTaskClass3(),  
         },
         
       ); // MaterialApp controls the overall app configuration and UI.
