@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:module_09_flutter_basics/module_16_local_database/class_03_best_practices/db/task_database.dart';
-import 'package:module_09_flutter_basics/module_16_local_database/class_03_best_practices/models/task_models.dart';
+import 'package:module_09_flutter_basics/module_16_local_database/class_03_complete_crud_operations/db/task_database.dart';
+import 'package:module_09_flutter_basics/module_16_local_database/class_03_complete_crud_operations/models/task_models.dart';
 
 class HomeTaskClass3 extends StatefulWidget {
   const HomeTaskClass3({super.key});
@@ -44,8 +44,6 @@ class _HomeTaskClass3State extends State<HomeTaskClass3> {
     await TaskDatabaseClass3.deleteTask(id);
 
     await refreshTask();
-
-    taskController.clear();
   }
   // Creates an updated copy of the selected task with the opposite status.
   // The same id is kept so updateTask() changes the existing row.
@@ -55,8 +53,6 @@ class _HomeTaskClass3State extends State<HomeTaskClass3> {
       TaskModelClass3(title: task.title, isDone: !task.isDone, id: task.id)
     );
     await refreshTask();
-
-    taskController.clear();
   }
 
 

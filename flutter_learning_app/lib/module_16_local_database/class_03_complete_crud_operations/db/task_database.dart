@@ -1,4 +1,4 @@
-import 'package:module_09_flutter_basics/module_16_local_database/class_03_best_practices/models/task_models.dart';
+import 'package:module_09_flutter_basics/module_16_local_database/class_03_complete_crud_operations/models/task_models.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart' as p;
@@ -42,20 +42,20 @@ class TaskDatabaseClass3 {
 
   // Deletes only the row whose id matches the selected task.
   // The ? placeholder receives its value safely from whereArgs.
-  static Future<void>deleteTask(int id) async{
+  static Future<void> deleteTask(int id) async{
     final db =  await getDB();
 
     // where prevents every row from being deleted.
-    db.delete("tasks", where: 'id = ?', whereArgs: [id]);
+    await db.delete("tasks", where: 'id = ?', whereArgs: [id]);
   }
 
   // Updates the saved title or completion status of one existing task.
   // The task id identifies which database row must be changed.
-  static Future<void>updateTask(TaskModelClass3 task) async{
+  static Future<void> updateTask(TaskModelClass3 task) async{
     final db =  await getDB();
 
     // toMap() provides the new values, while whereArgs selects the matching id.
-    db.update("tasks", task.toMap(), where: "id = ?", whereArgs: [task.id]);
+    await db.update("tasks", task.toMap(), where: "id = ?", whereArgs: [task.id]);
   }
 
 }
