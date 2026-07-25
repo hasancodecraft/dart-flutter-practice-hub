@@ -54,6 +54,8 @@ dependencies:
   # Provides platform-safe path utilities.
   # p.join() combines the database folder and task.db file name correctly.
   path: ^1.9.1
+
+  http: ^1.6.0
   
 dev_dependencies:
   flutter_test:

@@ -24,6 +24,7 @@ import 'package:module_09_flutter_basics/module_16_local_database/class_02_data_
 // Imports the Module 16 Class 3 task page.
 // This version adds task deletion and completion-status updates.
 import 'package:module_09_flutter_basics/module_16_local_database/class_03_complete_crud_operations/ui/task_home.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/crud.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';
@@ -73,8 +74,8 @@ class MyApp extends StatelessWidget {
         // Here, home is commented out because initialRoute is being used.
         //home: Module13Class2(),
 
-        // The app starts from the Module 16 Class 3 task page.
-        initialRoute: '/homeTaskClass3', 
+        /// The app starts from the Module 17 Class 2 CRUD product page.
+        initialRoute: '/curd', 
         
         // routes connects route-name strings with their destination page widgets.
         // The left side contains the route name.
@@ -108,6 +109,8 @@ class MyApp extends StatelessWidget {
           // Opens the Module 16 Class 3 task page.
           // This page supports adding, deleting, and updating task completion status.
           "/homeTaskClass3": (context) => HomeTaskClass3(),  
+          
+          "/curd": (context) => Curd(),  
         },
         
       ); // MaterialApp controls the overall app configuration and UI.
