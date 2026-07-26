@@ -24,4 +24,35 @@ Future<void>getProduct() async{
     products = model.data ?? [];
   }
 }
+
+  Future<bool> createProduct(Data data) async{
+    final url = Uri.parse(Urls.createProductURL);
+    final response = await http.post(url,
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+  },
+
+    body: jsonEncode(
+
+      {
+      "ProductName": data.productName,
+      "ProductCode": DateTime.now().microsecond,
+      "Img":data.img,
+      "Qty": data.qty,
+      "UnitPrice": data.unitPrice,
+      "TotalPrice": data.totalPrice
+    }
+    )
+    );
+
+    print(response.statusCode);
+    print(response.body);
+
+    if(response.statusCode == 200){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/controller/product_controller.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/model/product_model.dart';
 
 class Curd extends StatefulWidget {
   const Curd({super.key});
@@ -24,6 +25,90 @@ class _CurdState extends State<Curd> {
     // TODO: implement initState
     super.initState();
     fetchData();
+  }
+
+  productDialog(){
+    TextEditingController productNameController = TextEditingController();
+    TextEditingController productIMGController = TextEditingController();
+    TextEditingController productQTYController = TextEditingController();
+    TextEditingController productUnitPriceController = TextEditingController();
+    TextEditingController productTotalPriceController = TextEditingController();
+
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: Text("Create Product"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: productNameController,
+            decoration: InputDecoration(
+              labelText: 'name',
+            ),
+          ),
+
+          SizedBox(height: 10,),
+          TextField(
+            controller: productIMGController,
+            decoration: InputDecoration(
+              labelText: 'Image',
+            ),
+          ),
+
+          SizedBox(height: 10,),
+          TextField(
+            controller: productQTYController,
+            decoration: InputDecoration(
+              labelText: 'QTY',
+            ),
+          ),
+
+          SizedBox(height: 10,),
+          TextField(
+            controller: productUnitPriceController,
+            decoration: InputDecoration(
+              labelText: 'Unit price',
+            ),
+          ),
+
+          SizedBox(height: 10,),
+
+          TextField(
+            controller: productTotalPriceController,
+            decoration: InputDecoration(
+              labelText: 'Total price',
+            ),
+          ),
+
+          SizedBox(height: 10,),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: (){}, 
+                child: Text("Cancle")),
+              
+              ElevatedButton(
+                onPressed: () async{
+                  productController.createProduct(Data(
+                    productName : productNameController.text,
+                    img: productIMGController.text,
+                    qty: int.parse(productQTYController.text),
+                    unitPrice: int.parse(productTotalPriceController.text),
+                    totalPrice: int.parse(productTotalPriceController.text)
+                    )
+                  );
+                  await fetchData();
+                  Navigator.pop(context);
+                }, 
+                child: Text("Submit"))
+            ],
+          )
+
+        ],
+      ),
+    )
+    );
   }
 
   @override
@@ -72,6 +157,12 @@ class _CurdState extends State<Curd> {
             ],
           );
         }),
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            productDialog();
+          }, 
+          child: Icon(Icons.add)),
     );
   }
 }
