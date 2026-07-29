@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+
+// Imports ProductController.
+// This controller sends API requests and stores the product list.
 import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/controller/product_controller.dart';
+
+// Imports the Data model.
+// A Data object represents one product.
 import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/model/product_model.dart';
 
-// StatefulWidget is used because the product list changes after API calls.
+// StatefulWidget is used because API data can change.
+// After products are loaded or created, the screen must rebuild.
 class Crud extends StatefulWidget {
   const Crud({super.key});
 
@@ -12,14 +19,38 @@ class Crud extends StatefulWidget {
 
 class _CrudState extends State<Crud> {
 
-  // Handles API requests and stores the products received from the server.
+  /*
+    Creates one ProductController object.
+
+    Connection:
+    crud.dart → ProductController → API server
+
+    This page uses the controller to:
+    1. Get products from the server.
+    2. Create a new product.
+    3. Access the products list.
+  */
   ProductController productController = ProductController();
  
-  // Loads products from the API and rebuilds the UI with the new list.
+  /*
+    Loads the latest products from the API.
+
+    Flow:
+    fetchData()
+        ↓
+    productController.getProduct()
+        ↓
+    GET request is sent
+        ↓
+    Products are stored in productController.products
+        ↓
+    setState() rebuilds the GridView
+  */
   Future fetchData() async {
+    // Waits until getProduct() finishes receiving and converting the API data.
     await productController.getProduct();
 
-    // setState() rebuilds the GridView after the product list changes.
+    // Rebuilds the UI after the products list changes.
     setState(() {
       
     });
@@ -27,28 +58,45 @@ class _CrudState extends State<Crud> {
   
   @override
   void initState() {
-    // initState() runs once when this page is created.
+    // Calls the parent class initialization first.
     super.initState();
 
-    // Loads the existing products when the page opens.
+    // Loads existing products only once when this page is first created.
     fetchData();
   }
 
-  // Opens a dialog for collecting the information of a new product.
+  /*
+    Opens a dialog where the user can enter a new product.
+
+    Flow:
+    Add button
+        ↓
+    productDialog()
+        ↓
+    User enters values
+        ↓
+    Values are read using controller.text
+        ↓
+    A Data object is created
+        ↓
+    createProduct() sends it to the API
+  */
   productDialog(){
-    // Each controller reads the text entered into its TextField.
+    // Each TextEditingController stores the value of one TextField.
     TextEditingController productNameController = TextEditingController();
     TextEditingController productIMGController = TextEditingController();
     TextEditingController productQTYController = TextEditingController();
     TextEditingController productUnitPriceController = TextEditingController();
     TextEditingController productTotalPriceController = TextEditingController();
 
+    // Shows an AlertDialog above the current CRUD page.
     showDialog(context: context, builder: (context) => AlertDialog(
       title: Text("Create Product"),
       content: Column(
-        // Keeps the dialog only as tall as its content needs.
+        // Makes the Column use only the height needed by its children.
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Stores the entered product name in productNameController.
           TextField(
             controller: productNameController,
             decoration: InputDecoration(
@@ -57,6 +105,8 @@ class _CrudState extends State<Crud> {
           ),
 
           SizedBox(height: 10,),
+
+          // Stores the entered image URL in productIMGController.
           TextField(
             controller: productIMGController,
             decoration: InputDecoration(
@@ -65,6 +115,8 @@ class _CrudState extends State<Crud> {
           ),
 
           SizedBox(height: 10,),
+
+          // Stores the entered quantity in productQTYController.
           TextField(
             controller: productQTYController,
             decoration: InputDecoration(
@@ -73,6 +125,8 @@ class _CrudState extends State<Crud> {
           ),
 
           SizedBox(height: 10,),
+
+          // Stores the entered unit price in productUnitPriceController.
           TextField(
             controller: productUnitPriceController,
             decoration: InputDecoration(
@@ -82,6 +136,7 @@ class _CrudState extends State<Crud> {
 
           SizedBox(height: 10,),
 
+          // Stores the entered total price in productTotalPriceController.
           TextField(
             controller: productTotalPriceController,
             decoration: InputDecoration(
@@ -94,28 +149,51 @@ class _CrudState extends State<Crud> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // This button currently has no action inside onPressed.
               TextButton(
                 onPressed: (){}, 
                 child: Text("Cancel")),
               
               ElevatedButton(
                 onPressed: () async{
-                  // Creates a Data object from the entered values and sends it to the API.
+                  /*
+                    Creates one Data model object from the TextField values.
+
+                    Connection:
+                    TextFields
+                        ↓
+                    controller.text
+                        ↓
+                    Data object
+                        ↓
+                    ProductController.createProduct()
+                        ↓
+                    POST request
+                        ↓
+                    API server
+                  */
                   productController.createProduct(Data(
+                    // TextField values are received as Strings.
                     productName : productNameController.text,
                     img: productIMGController.text,
 
-                    // TextField values are Strings, so int.parse() converts numeric inputs.
+                    // int.parse() converts numeric text into an int value.
                     qty: int.parse(productQTYController.text),
-                    unitPrice: int.parse(productTotalPriceController.text),
+
+                    // This current line reads from the total-price controller.
+                    unitPrice: int.parse(productUnitPriceController.text),
+
                     totalPrice: int.parse(productTotalPriceController.text)
                     )
                   );
 
-                  // Requests the latest product list and rebuilds the screen.
+                  /*
+                    Gets the latest product list after the create request
+                    and rebuilds the screen through setState().
+                  */
                   await fetchData();
 
-                  // Closes the dialog and returns to the product page.
+                  // Closes the AlertDialog and returns to the CRUD screen.
                   Navigator.pop(context);
                 }, 
                 child: Text("Submit"))
@@ -136,40 +214,71 @@ class _CrudState extends State<Crud> {
         backgroundColor: Colors.blue,
       ),
 
-      // Builds product cards from the list stored in ProductController.
+      /*
+        Builds the UI from productController.products.
+
+        Connection:
+        ProductController.products
+            ↓
+        GridView.builder
+            ↓
+        One product is selected by index
+            ↓
+        Its image, name, and price are displayed
+      */
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          // Shows two product cards in each row.
           crossAxisCount: 2,
+
+          // Adds horizontal space between the two columns.
           crossAxisSpacing: 10,
+
+          // Controls the width-to-height ratio of each grid item.
           childAspectRatio: 0.83
           ), 
+
+        // Creates the same number of items as the products list length.
         itemCount: productController.products.length,
+
         itemBuilder: (context, index){
-          // Gets the current product object for this grid position.
+          /*
+            Gets one Data object using the current index.
+
+            Example:
+            index 0 → first product
+            index 1 → second product
+          */
           final items = productController.products[index];
+
           return Column(
             children: [
               SizedBox(
                 height: 140,
                 child: 
-                  // Loads the product image from its online URL.
+                  // Reads the image URL from the current product object.
                   Image.network(items.img.toString()),   
               ),
+
+              // Reads and shows the current product name.
               Text(items.productName.toString(), style: TextStyle(
                 fontSize: 15, fontWeight: FontWeight.bold
               ),),
+
+              // Reads and shows the current product's total price.
               Text("Price -${items.totalPrice} ", style: TextStyle(
                color: Colors.deepPurpleAccent
               ),),
 
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  // Edit UI is ready, but its update action is not added yet.
                   IconButton(
                     onPressed: (){}, 
                     icon: Icon(Icons.edit_note, color: Colors.orange,)),
 
+                  // Delete UI is ready, but its delete action is not added yet.
                   IconButton(
                     onPressed: (){}, 
                     icon: Icon(Icons.delete, color: Colors.red,))
