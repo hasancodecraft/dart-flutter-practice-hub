@@ -80,4 +80,6 @@ class Urls{
     New product data is sent to the server
   */
   static String createProductURL = '$baseURL/CreateProduct';
+
+  static String deleteProductURL(String productID) => '$baseURL/DeleteProduct/$productID';
 }

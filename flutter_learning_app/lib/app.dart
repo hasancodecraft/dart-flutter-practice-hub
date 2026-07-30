@@ -25,7 +25,7 @@ import 'package:module_09_flutter_basics/module_16_local_database/class_02_data_
 // This version adds task deletion and completion-status updates.
 import 'package:module_09_flutter_basics/module_16_local_database/class_03_complete_crud_operations/ui/task_home.dart';
 // Imports the Module 17 Class 2 page that reads and creates products through HTTP APIs.
-import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/screens/crud.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/screens/crud.dart';
 
 import 'module_09_flutter_basics/class_02_basic_widgets/home.dart';
 import 'module_09_flutter_basics/class_03_app_structure/app_structure.dart';

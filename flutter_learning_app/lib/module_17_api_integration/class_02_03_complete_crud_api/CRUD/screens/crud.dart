@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 // Imports ProductController.
 // This controller sends API requests and stores the product list.
-import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/controller/product_controller.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/controller/product_controller.dart';
 
 // Imports the Data model.
 // A Data object represents one product.
-import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/model/product_model.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/model/product_model.dart';
 
 // StatefulWidget is used because API data can change.
 // After products are loaded or created, the screen must rebuild.
@@ -280,7 +280,20 @@ class _CrudState extends State<Crud> {
 
                   // Delete UI is ready, but its delete action is not added yet.
                   IconButton(
-                    onPressed: (){}, 
+                    onPressed: (){
+                      productController.deleteProduct(items.sId.toString()).then((value) async{
+                        if(value){
+                          await fetchData();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(content:Text("Product deleted")) 
+                          );
+                        } else{
+                          await fetchData();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(content:Text("Somethig wrong try again")));
+                        }
+                      });
+                    }, 
                     icon: Icon(Icons.delete, color: Colors.red,))
                 ],
               )

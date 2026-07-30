@@ -30,14 +30,14 @@ import 'dart:convert';
 //
 // ProductModel represents the complete API response.
 // Data represents one product.
-import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/model/product_model.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/model/product_model.dart';
 
 // Imports the saved API URLs.
 //
 // This controller uses:
 // Urls.readProductURL
 // Urls.createProductURL
-import 'package:module_09_flutter_basics/module_17_api_integration/class_02_http_methods/CRUD/utils/urls.dart';
+import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/utils/urls.dart';
 
 // The http package sends GET and POST requests to the API server.
 // "as http" gives the package a short name for calls such as:
@@ -267,6 +267,17 @@ Future<void> getProduct() async{
       It does not check whether the response body's
       "status" value is "success" or "fail".
     */
+    if(response.statusCode == 200){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deleteProduct(String productID) async{
+    final url = Uri.parse(Urls.deleteProductURL(productID));
+    final response = await http.get(url);
+
     if(response.statusCode == 200){
       return true;
     } else {
