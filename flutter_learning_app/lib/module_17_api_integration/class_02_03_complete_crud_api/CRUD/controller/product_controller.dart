@@ -1,272 +1,90 @@
-/*
-  This controller connects the Flutter UI with the API server.
-
-  GET flow:
-  crud.dart
-      ↓ calls getProduct()
-  ProductController
-      ↓ sends GET request
-  API server
-      ↓ returns JSON
-  jsonDecode()
-      ↓
-  ProductModel.fromJson()
-      ↓
-  products list
-
-  POST flow:
-  crud.dart
-      ↓ sends a Data object
-  createProduct(Data data)
-      ↓ converts Dart data into JSON
-  API server
-      ↓ creates the product
-  true or false is returned
-*/
-
+// Handles product API requests and stores the products received from the server.
 import 'dart:convert';
 
-// Imports ProductModel and Data.
-//
-// ProductModel represents the complete API response.
-// Data represents one product.
+// Imports ProductModel for the full response and Data for one product.
 import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/model/product_model.dart';
 
-// Imports the saved API URLs.
-//
-// This controller uses:
-// Urls.readProductURL
-// Urls.createProductURL
+// Imports all API endpoint URLs.
 import 'package:module_09_flutter_basics/module_17_api_integration/class_02_03_complete_crud_api/CRUD/utils/urls.dart';
 
-// The http package sends GET and POST requests to the API server.
-// "as http" gives the package a short name for calls such as:
-// http.get()
-// http.post()
+// Sends HTTP requests such as GET and POST.
 import 'package:http/http.dart' as http;
 
-// Handles API communication and stores products received from the server.
-//
-// Connection:
-// crud.dart → ProductController → API server
+// Connects the UI with the product API.
 class ProductController{
 
-  /*
-    Stores all products after the API JSON is converted
-    into Data objects.
-
-    At first:
-    products = []
-
-    After getProduct() finishes:
-    products = [Data object, Data object, ...]
-  */
+  // Stores the product objects shown by the UI.
   List<Data> products = [];
 
-/*
-  Gets all products from the API.
-
-  Future<void> means:
-  - The method finishes later because an API request takes time.
-  - The method does not return a value.
-
-  async allows this method to use await.
-*/
+// Reads all products from the server.
+// Future<void> means the work finishes later and returns no value.
 Future<void> getProduct() async{
-  /*
-    Urls.readProductURL contains the API URL as a String.
 
-    Uri.parse() converts that String into a Uri object
-    because http.get() requires a Uri.
-
-    Flow:
-    URL String
-        ↓ Uri.parse()
-    Uri object
-  */
+  // Converts the read endpoint from String to Uri.
   final url = Uri.parse(Urls.readProductURL);
 
-  /*
-    Sends a GET request to the ReadProduct endpoint.
-
-    await pauses the next lines of this method until
-    the server response arrives.
-
-    It does not freeze the complete Flutter application.
-  */
+  // Waits until the server returns the GET response.
   final response = await http.get(url);
 
-  /*
-    response.statusCode contains the HTTP result code.
-
-    Example:
-    200 → Request successful
-    404 → Resource not found
-    500 → Server error
-
-    response.body contains the JSON response as a String.
-  */
+  // Prints the server result for debugging.
   print(response.statusCode);
   print(response.body);
 
-  /*
-    The response is processed only when the server
-    returns the successful HTTP status code 200.
-  */
+  // Processes the response only when the request is successful.
   if(response.statusCode == 200){
-    /*
-      The API response body is currently a JSON String.
 
-      jsonDecode() converts it into Dart Map/List data.
-
-      Flow:
-      response.body
-          ↓ jsonDecode()
-      Dart Map
-    */
+    // Converts the JSON response String into Dart data.
     final jsonResponse = jsonDecode(response.body);
 
-    /*
-      Converts the decoded API Map into a ProductModel object.
-
-      ProductModel.fromJson() also converts every product Map
-      inside the "data" list into a Data object.
-
-      Flow:
-      Decoded JSON Map
-          ↓ ProductModel.fromJson()
-      ProductModel
-          ↓
-      List<Data>
-    */
+    // Converts the decoded Map into ProductModel and Data objects.
     ProductModel model = ProductModel.fromJson(jsonResponse);
 
-    /*
-      Stores the converted product list in products.
-
-      model.data ?? [] means:
-      - Use model.data when it is not null.
-      - Use an empty list when model.data is null.
-
-      crud.dart later reads this list to build the GridView.
-    */
+    // Saves the received list, or an empty list when data is null.
     products = model.data ?? [];
   }
 }
 
-  /*
-    Creates a new product through a POST request.
-
-    Data data receives one Data object from crud.dart.
-
-    Example connection:
-    TextField values
-        ↓
-    Data(...)
-        ↓
-    createProduct(Data data)
-        ↓
-    POST request
-
-    Future<bool> means the result will arrive later
-    and will be either true or false.
-  */
+  // Creates a product and returns true for HTTP 200, otherwise false.
   Future<bool> createProduct(Data data) async{
-    /*
-      Gets the CreateProduct URL as a String
-      and converts it into a Uri for http.post().
-    */
+
+    // Converts the create endpoint from String to Uri.
     final url = Uri.parse(Urls.createProductURL);
 
-    /*
-      Sends a POST request and waits for the server response.
-
-      The request contains:
-      1. URL
-      2. Headers
-      3. JSON body
-    */
+    // Sends the new product as JSON and waits for the response.
     final response = await http.post(url,
   headers: {
-    /*
-      Tells the server that the app wants to receive
-      the response in JSON format.
-    */
+
+    // Requests a JSON response from the server.
     "Accept": "application/json",
 
-    /*
-      Tells the server that the request body
-      is being sent in JSON format.
-    */
+    // Tells the server that the request body contains JSON.
     "Content-Type": "application/json",
   },
 
-    /*
-      The values below first create a Dart Map.
-
-      jsonEncode() converts that Dart Map into a JSON String
-      because the POST request body sends text data.
-
-      Flow:
-      Data object
-          ↓
-      Dart Map
-          ↓ jsonEncode()
-      JSON String
-          ↓
-      API server
-    */
+    // Converts the product Map into a JSON String.
     body: jsonEncode(
 
       {
-      // Reads the product name from the received Data object.
+      
       "ProductName": data.productName,
 
-      /*
-        Creates a temporary numeric product code
-        using the microsecond part of the current time.
+      // Creates a time-based numeric product code.
+      "ProductCode": DateTime.now().microsecondsSinceEpoch,
 
-        This value is generated inside the controller,
-        so the user does not enter it in the form.
-      */
-      "ProductCode": DateTime.now().microsecond,
-
-      // Reads the image value from the Data object.
       "Img":data.img,
 
-      // Reads the product quantity.
       "Qty": data.qty,
 
-      // Reads the price of one product unit.
       "UnitPrice": data.unitPrice,
 
-      // Reads the total product price.
       "TotalPrice": data.totalPrice
     }
     )
     );
 
-    /*
-      Prints the POST request result for debugging.
-
-      statusCode shows the HTTP result.
-      body shows the response sent by the server.
-    */
     print(response.statusCode);
     print(response.body);
 
-    /*
-      Returns true when the HTTP status code is 200.
-      Otherwise, it returns false.
-
-      crud.dart can use this Boolean result to decide
-      whether the product creation was successful.
-
-      Note:
-      This code checks only the HTTP status code.
-      It does not check whether the response body's
-      "status" value is "success" or "fail".
-    */
     if(response.statusCode == 200){
       return true;
     } else {
@@ -274,8 +92,11 @@ Future<void> getProduct() async{
     }
   }
 
+  // Deletes the product selected by its database ID.
   Future<bool> deleteProduct(String productID) async{
+    // Adds the selected product ID to the delete endpoint.
     final url = Uri.parse(Urls.deleteProductURL(productID));
+    // This API uses a GET request for its delete endpoint.
     final response = await http.get(url);
 
     if(response.statusCode == 200){
@@ -284,4 +105,50 @@ Future<void> getProduct() async{
       return false;
     }
   }
+
+  // Updates the selected product.
+  // productID selects the product, and data contains the new values.
+  Future<bool> updateProduct( String productID, Data data) async{
+
+    // Adds the selected product ID to the update endpoint.
+    final url = Uri.parse(Urls.updateProductURL(productID));
+
+    // Sends the updated product as JSON and waits for the response.
+    final response = await http.post(url,
+  headers: {
+   
+    "Accept": "application/json",
+
+    "Content-Type": "application/json",
+  },
+
+    body: jsonEncode(
+
+      {
+      
+      "ProductName": data.productName,
+
+      "ProductCode": DateTime.now().microsecondsSinceEpoch,
+
+      "Img":data.img,
+
+      "Qty": data.qty,
+
+      "UnitPrice": data.unitPrice,
+
+      "TotalPrice": data.totalPrice
+    }
+    )
+    );
+
+    print(response.statusCode);
+    print(response.body);
+
+    if(response.statusCode == 200){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

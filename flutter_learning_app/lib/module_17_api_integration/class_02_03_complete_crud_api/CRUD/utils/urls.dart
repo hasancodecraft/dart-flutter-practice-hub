@@ -1,85 +1,18 @@
-/*
-  This file stores all API URLs in one place.
-
-  Connection:
-
-  product_controller.dart
-        ↓
-  Uses URLs from this class
-        ↓
-  Sends GET or POST requests
-        ↓
-  API server
-
-  Keeping URLs here avoids writing the same server address
-  repeatedly inside the controller.
-*/
-
-// Keeps all API addresses in one place so they can be reused easily.
+// Stores all product API endpoints in one place.
 class Urls{
 
-  /*
-    Stores the common server address.
-
-    static means this value belongs directly to the Urls class.
-    Therefore, no Urls object needs to be created.
-
-    It can be accessed directly:
-
-    Urls.baseURL
-
-    URL structure:
-
-    https://crud-api-ostad-live.onrender.com
-        → Server address
-
-    /api
-        → API path
-
-    /v1
-        → Version 1 of the API
-  */
+  // Common server address used by every endpoint.
   static String baseURL = 'https://crud-api-ostad-live.onrender.com/api/v1';
 
-  /*
-    Creates the complete endpoint for reading products.
-
-    $baseURL inserts the value of baseURL into this String.
-
-    Final URL:
-
-    https://crud-api-ostad-live.onrender.com/api/v1/ReadProduct
-
-    Connection:
-
-    ProductController.getProduct()
-        ↓
-    Urls.readProductURL
-        ↓
-    http.get()
-        ↓
-    Products are received from the server
-  */
+  // Endpoint for reading all products.
   static String readProductURL = '$baseURL/ReadProduct';
 
-  /*
-    Creates the complete endpoint for creating a product.
-
-    Final URL:
-
-    https://crud-api-ostad-live.onrender.com/api/v1/CreateProduct
-
-    Connection:
-
-    ProductController.createProduct()
-        ↓
-    Urls.createProductURL
-        ↓
-    http.post()
-        ↓
-    New product data is sent to the server
-  */
+  // Endpoint for creating a new product.
   static String createProductURL = '$baseURL/CreateProduct';
 
+  // Builds the delete endpoint for one product ID.
   static String deleteProductURL(String productID) => '$baseURL/DeleteProduct/$productID';
+  
+  // Builds the update endpoint for one product ID.
+  static String updateProductURL(String productID) => '$baseURL/UpdateProduct/$productID';
 }

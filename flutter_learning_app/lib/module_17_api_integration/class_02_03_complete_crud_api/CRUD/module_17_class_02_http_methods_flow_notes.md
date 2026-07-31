@@ -1,169 +1,352 @@
-# Module 17 — Class 2: HTTP Methods
+# Module 17 — Classes 2 and 3: Complete CRUD API
 
-## Current CRUD Files
+## Folder Structure
 
 ```text
-CRUD/
-├── controller/
-│   └── product_controller.dart
-├── model/
-│   └── product_model.dart
-├── utils/
-│   └── urls.dart
-└── crud.dart
+lib/
+├── app.dart
+└── module_17_api_integration/
+    └── class_02_03_complete_crud_api/
+        └── CRUD/
+            ├── controller/
+            │   └── product_controller.dart
+            ├── model/
+            │   └── product_model.dart
+            ├── screens/
+            │   └── crud.dart
+            ├── utils/
+            │   └── urls.dart
+            └── module_17_class_02_03_complete_crud_flow_notes.md
 ```
 
-## File Responsibilities
+---
 
-### `urls.dart`
+## 1. `app.dart`
 
-Stores the API links in one place.
+### Route Flow
+
+```text
+MyApp
+    ↓
+MaterialApp
+    ↓
+initialRoute: /crud
+    ↓
+routes['/crud']
+    ↓
+Crud page opens
+```
+
+`app.dart` imports the combined CRUD screen and connects it to the `/crud` named route.
+
+---
+
+## 2. `urls.dart`
+
+### URL Flow
 
 ```text
 baseURL
-├── /ReadProduct
-└── /CreateProduct
+    ↓
+ReadProduct
+CreateProduct
+UpdateProduct/{productID}
+DeleteProduct/{productID}
 ```
 
-This avoids writing the full URL many times.
+- `readProductURL` reads all products.
+- `createProductURL` creates a new product.
+- `updateProductURL(productID)` builds the update URL for one product.
+- `deleteProductURL(productID)` builds the delete URL for one product.
 
 ---
 
-### `product_model.dart`
+## 3. `product_model.dart`
 
-Converts data between JSON and Dart objects.
+### Read Conversion Flow
 
 ```text
-API JSON → fromJson() → Dart object
-Dart object → toJson() → JSON
+API JSON String
+    ↓ jsonDecode() in ProductController
+Decoded Dart Map
+    ↓ ProductModel.fromJson()
+ProductModel
+    ↓ Data.fromJson()
+List<Data>
 ```
 
-- `ProductModel` stores the full API response.
-- `Data` stores one product.
+### `ProductModel`
+
+```text
+status → API result
+data   → complete product list
+```
+
+### `Data`
+
+```text
+sId
+productName
+productCode
+img
+qty
+unitPrice
+totalPrice
+```
+
+### Map Conversion Flow
+
+```text
+ProductModel or Data object
+    ↓ toJson()
+Dart Map
+```
 
 ---
 
-### `product_controller.dart`
+## 4. `product_controller.dart`
 
-Handles API requests.
+This file sends API requests and stores the product list.
 
-#### GET Product Flow
-
-```text
-getProduct()
-    ↓
-Send GET request
-    ↓
-Receive JSON response
-    ↓
-jsonDecode()
-    ↓
-ProductModel.fromJson()
-    ↓
-Save products in List<Data>
-```
-
-#### POST Product Flow
+### `getProduct()` Flow
 
 ```text
-createProduct(Data data)
+readProductURL
+    ↓ Uri.parse()
+Uri
+    ↓ http.get()
+Server response
+    ↓ statusCode == 200
+jsonDecode(response.body)
+    ↓ ProductModel.fromJson()
+List<Data>
     ↓
-Convert product data into JSON
-    ↓
-Send POST request
-    ↓
-Server creates the product
-    ↓
-Return true or false
+products
 ```
 
-`jsonDecode()` is used when receiving data.
+### `createProduct(Data data)` Flow
 
-`jsonEncode()` is used when sending data.
+```text
+Data object from the form
+    ↓
+CreateProduct URL
+    ↓
+Dart Map
+    ↓ jsonEncode()
+JSON String
+    ↓ http.post()
+API server
+    ↓
+HTTP 200 → true
+Other code → false
+```
+
+### `updateProduct(String productID, Data data)` Flow
+
+```text
+Clicked product ID
+    ↓
+UpdateProduct/{productID}
+    +
+New Data object from edited fields
+    ↓ jsonEncode()
+POST request
+    ↓
+Server updates that product
+    ↓
+HTTP 200 → true
+Other code → false
+```
+
+`productID` selects the product.  
+`data` carries the new product values.
+
+### `deleteProduct(String productID)` Flow
+
+```text
+Clicked product ID
+    ↓
+DeleteProduct/{productID}
+    ↓
+GET request used by this API
+    ↓
+Server deletes that product
+    ↓
+HTTP 200 → true
+Other code → false
+```
 
 ---
 
-### `crud.dart`
+## 5. `crud.dart`
 
-Handles the screen and user input.
+This file displays the UI and collects user input.
 
-#### Page Loading Flow
+### Page Loading Flow
 
 ```text
-Page opens
+Crud page opens
     ↓
 initState()
     ↓
 fetchData()
     ↓
-getProduct()
+ProductController.getProduct()
+    ↓
+products list updated
     ↓
 setState()
     ↓
-GridView shows products
+GridView rebuilds
 ```
 
-`setState()` rebuilds the screen after the product list changes.
-
-#### Create Product Flow
+### Grid Item Flow
 
 ```text
-Add button
+GridView index
     ↓
-Open product dialog
+products[index]
     ↓
-User enters product information
+Current Data object
     ↓
-Read TextField values using controller.text
+Image, name, price, edit button, delete button
+```
+
+Each item has its own product object and `sId`.
+
+### Create Flow
+
+```text
+FloatingActionButton
     ↓
-Create a Data object
+productDialog(false)
+    ↓
+Create mode
+    ↓
+User enters values
+    ↓
+Data object
     ↓
 createProduct()
     ↓
 fetchData()
     ↓
-Close dialog
+setState()
     ↓
-Updated product list appears
+Dialog closes
+```
+
+### Update Flow
+
+```text
+Edit button on one item
+    ↓
+productDialog(true, data: item)
+    ↓
+Old values fill the fields
+    ↓
+User changes values
+    ↓
+Selected item.sId + new Data object
+    ↓
+updateProduct(productID, data)
+    ↓
+fetchData()
+    ↓
+setState()
+    ↓
+Dialog closes
+```
+
+### Delete Flow
+
+```text
+Delete button on one item
+    ↓
+item.sId
+    ↓
+deleteProduct(productID)
+    ↓
+true or false
+    ↓
+true  → fetchData() → success SnackBar
+false → fetchData() → error SnackBar
 ```
 
 ---
 
-## Complete App Flow
+## 6. Complete CRUD Connection
 
 ```text
-Flutter UI
+crud.dart
     ↓
 ProductController
     ↓
-API URL
+Urls
     ↓
-Server
+API server
     ↓
 JSON response
     ↓
-ProductModel
+ProductModel and Data
     ↓
-Product list
+products list
     ↓
-Flutter UI
+setState()
+    ↓
+Updated GridView
 ```
 
-## Current Progress
+---
+
+## 7. HTTP Methods Used by This API
 
 ```text
-GET    → Completed
-POST   → Completed
-PUT    → Not added yet
-DELETE → Not added yet
+Read   → GET
+Create → POST
+Update → POST
+Delete → GET
 ```
 
-## Small Current-Code Check
+The update and delete methods follow the design of this specific practice API.
 
-For `unitPrice`, use:
+---
+
+## 8. `async` and `await` Order
+
+```text
+API method returns Future
+    ↓
+await waits for the result
+    ↓
+Next line uses the completed result
+```
+
+Examples from this project:
 
 ```dart
-unitPrice: int.parse(productUnitPriceController.text),
+final response = await http.get(url);
+await productController.updateProduct(productID, data);
+await fetchData();
 ```
 
-The current code reads `productTotalPriceController.text` for both unit price and total price.
+This keeps the required order:
+
+```text
+Create, update, or delete finishes
+    ↓
+Latest products are fetched
+    ↓
+The UI rebuilds
+```
+
+---
+
+## Current Completion
+
+```text
+CREATE → Completed
+READ   → Completed
+UPDATE → Completed
+DELETE → Completed
+```
