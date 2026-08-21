@@ -55,6 +55,8 @@ dependencies:
   # p.join() combines the database folder and task.db file name correctly.
   path: ^1.9.1
 
+  flutter_svg: ^2.3.0
+
   # Sends HTTP requests such as GET and POST to web APIs.
   http: ^1.6.0
   
